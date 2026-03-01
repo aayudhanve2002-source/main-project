@@ -16,7 +16,7 @@ pipeline {
             steps {
                 withCredentials([[
                     $class: 'AmazonWebServicesCredentialsBinding',
-                    credentialsId: 'aws-terraform-creds'
+                    credentialsId: 'aayush aws'
                 ]]) {
                     dir('terraform-backend') {
                         sh 'terraform init'
@@ -85,3 +85,4 @@ pipeline {
     }
 
 }
+
