@@ -39,31 +39,7 @@ pipeline {
             }
         }
 
-        stage('Terraform Validate') {
-            steps {
-                withCredentials([[
-                    $class: 'AmazonWebServicesCredentialsBinding',
-                    credentialsId: 'aws-terraform-creds'
-                ]]) {
-                    dir('env/dev') {
-                        sh 'terraform validate'
-                    }
-                }
-            }
-        }
-
-        stage('Terraform Plan') {
-            steps {
-                withCredentials([[
-                    $class: 'AmazonWebServicesCredentialsBinding',
-                    credentialsId: 'aws-terraform-creds'
-                ]]) {
-                    dir('env/dev') {
-                        sh 'terraform plan -out=tfplan'
-                    }
-                }
-            }
-        }
+        
 
         stage('Terraform Apply') {
             steps {
@@ -107,4 +83,5 @@ pipeline {
             }
         }   
     }
+
 }
