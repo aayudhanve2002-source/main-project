@@ -39,7 +39,31 @@ pipeline {
             }
         }
 
-        
+        stage('Terraform Validate') {
+            steps {
+                withCredentials([[
+                    $class: 'AmazonWebServicesCredentialsBinding',
+                    credentialsId: 'aayush aws '
+                ]]) {
+                    dir('env/dev') {
+                        sh 'terraform validate'
+                    }
+                }
+            }
+        }
+
+        stage('Terraform Plan') {
+            steps {
+                withCredentials([[
+                    $class: 'AmazonWebServicesCredentialsBinding',
+                    credentialsId: 'aayush aws'
+                ]]) {
+                    dir('env/dev') {
+                        sh 'terraform plan -out=tfplan'
+                    }
+                }
+            }
+        }
 
         stage('Terraform Apply') {
             steps {
@@ -59,7 +83,7 @@ pipeline {
                 input message: 'Destroy DEV environment?'
                 withCredentials([[
                     $class: 'AmazonWebServicesCredentialsBinding',
-                    credentialsId: 'aayush aws'
+                    credentialsId: 'aayush aws '
                 ]]) {
                     dir('env/dev') {
                         sh 'terraform destroy -auto-approve'
@@ -83,7 +107,4 @@ pipeline {
             }
         }   
     }
-
 }
-
-
