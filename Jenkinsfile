@@ -30,7 +30,7 @@ pipeline {
             steps {
                 withCredentials([[
                     $class: 'AmazonWebServicesCredentialsBinding',
-                    credentialsId: 'aws-terraform-creds'
+                    credentialsId: 'aayush aws'
                 ]]) {
                     dir('env/dev') {
                         sh 'terraform init -reconfigure'
@@ -45,7 +45,7 @@ pipeline {
             steps {
                 withCredentials([[
                     $class: 'AmazonWebServicesCredentialsBinding',
-                    credentialsId: 'aws-terraform-creds'
+                    credentialsId: 'aayush aws'
                 ]]) {
                     dir('env/dev') {
                         sh 'terraform apply -auto-approve tfplan'
@@ -59,7 +59,7 @@ pipeline {
                 input message: 'Destroy DEV environment?'
                 withCredentials([[
                     $class: 'AmazonWebServicesCredentialsBinding',
-                    credentialsId: 'aws-terraform-creds'
+                    credentialsId: 'aayush aws'
                 ]]) {
                     dir('env/dev') {
                         sh 'terraform destroy -auto-approve'
@@ -73,7 +73,7 @@ pipeline {
                 input message: 'Destroy Terraform Backend? (S3 + DynamoDB)'
                 withCredentials([[
                     $class: 'AmazonWebServicesCredentialsBinding',
-                    credentialsId: 'aws-terraform-creds'
+                    credentialsId: 'aayush aws'
                 ]]) {
                     dir('terraform-backend') {
                         sh 'terraform init'
@@ -85,4 +85,5 @@ pipeline {
     }
 
 }
+
 
